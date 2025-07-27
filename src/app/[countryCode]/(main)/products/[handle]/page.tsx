@@ -9,6 +9,9 @@ type Props = {
 }
 
 export async function generateStaticParams() {
+  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+    return []
+ }
   try {
     const countryCodes = await listRegions().then((regions) =>
       regions?.map((r) => r.countries?.map((c) => c.iso_2)).flat()
